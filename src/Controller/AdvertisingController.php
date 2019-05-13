@@ -5,8 +5,9 @@ namespace App\Controller;
 use App\Entity\Advertising;
 use App\Form\AnnoucementType;
 use App\Repository\AdvertisingRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -31,13 +32,35 @@ class AdvertisingController extends AbstractController
 
     /**
      * Displays a create new post page
+     * Recovering the submitted form
      *
      * @Route("/ads/new", name="ads_new")
+     * @param Request $request
+     * @param ObjectManager $manager
      * @return Response
      */
-    public function create(){
+    public function create(Request $request, ObjectManager $manager){
 
+        // Create a new instance (object ad)
         $ad = new Advertising();
+
+
+        // Handles Request and entered infos are transfered in the database
+        $form = $this->createForm(AnnoucementType::class, $ad);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            //$manager = $this->getDoctrine()->getManager();
+            $manager->persist($ad);
+            $manager->flush();
+
+            $this->addFlash(
+                'success', "<strong>Test</strong> has been successfully added!"
+            );
+
+            return $this->redirectToRoute('ads_show', [
+               'slug' => $ad->getSlug()
+            ]);
+        }
 
         // Symfony's form builder, called input label and it will make it auto, it's magic!
         $form = $this->createForm(AnnoucementType::class, $ad);

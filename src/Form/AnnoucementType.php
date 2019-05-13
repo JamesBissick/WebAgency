@@ -38,7 +38,7 @@ class AnnoucementType extends AbstractType
         $builder
             ->add('title', TextType::class, $this->getConfigs('Title', 'Enter the title of your advert' ))
             ->add('slug', TextType::class, $this->getConfigs('Web URL', 'Enter the wanted URL string (auto)'))
-            ->add('coverImage', UrlType::class, $this->getConfigs('Web URL', 'Enter a picture of your property!'))
+            ->add('coverImage', UrlType::class, $this->getConfigs('Image URL', 'Enter a picture of your property!'))
             ->add('introduction', TextType::class, $this->getConfigs('Intro', 'Write a short and global introduction of your property'))
             ->add('content', TextareaType::class, $this->getConfigs('Description', 'Enter a description of your property inside this field'))
             ->add('rooms', IntegerType::class, $this->getConfigs('Number of Rooms', 'Enter the number of rooms your property has'))
