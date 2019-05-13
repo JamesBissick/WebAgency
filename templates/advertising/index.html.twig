@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Our ads{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="my-4">Our owners adverts!</h1>
+    <div class="row">
+        {% for ad in ads %}
+            {% set url = path('ads_show', {'slug': ad.slug}) %}
+            <div class="col-md-4">
+                <div class="card bg-light mb-3">
+                    <div class="card-header text-center">
+                        {{ ad.rooms }} rooms, <strong>{{ ad.price }}$/night</strong><br>
+                        <small>Not rated yet</small>
+
+                        <a href="{{ url }}">
+                            <img src="{{ ad.coverImage }}" alt="Image" style="height: 200px; width: 100%; display: block;">
+                        </a>
+
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="{{ url }}">
+                                    {{ ad.title }}
+                                </a>
+                            </h4>
+                            <p class="card-text">{{ ad.introduction }}</p>
+                            <a href="{{ url }}" class="btn-secondary">Learn More!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+    </div>
+
+{% endblock %}
