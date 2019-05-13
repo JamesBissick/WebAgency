@@ -1,11 +1,16 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Share your property!{% endblock %}
+
+{% form_theme form _self %}
+
 {% block body %}
     <div class="container">
-        <h2>Créer un nouveau post!</h2>
+        <h2>Create a new post!</h2>
         {# This will generate the form #}
         {{ form_start(form) }}
         {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">Send!</button>
         {{ form_end(form) }}
     </div>
 
