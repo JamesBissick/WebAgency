@@ -17,17 +17,20 @@ class AnnoucementType extends AbstractType {
 
     /**
      * Allows to have basic configurations inside our form
+     *
      * @param $label
-     * @param $placeholer
+     * @param $placeholder
+     * @param bool $required
      * @return array
      */
-    private function getConfigs($label, $placeholer){
+    private function getConfigs($label, $placeholder, $required = TRUE){
 
         return [
             'label' => $label,
             'attr' => [
-                'placeholder' => $placeholer
-            ]
+                'placeholder' => $placeholder
+            ],
+            'required' => $required
         ];
 
 
@@ -35,8 +38,8 @@ class AnnoucementType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('title', TextType::class, $this->getConfigs('Title', 'Enter the title of your advert' ))
-            ->add('slug', TextType::class, $this->getConfigs('Web URL', 'Enter the wanted URL string (auto)'))
+            ->add('title', TextType::class, $this->getConfigs('Title', 'Enter the title of your advert'))
+            ->add('slug', TextType::class, $this->getConfigs('Web URL', 'Enter the wanted URL string (auto)', FALSE))
             ->add('coverImage', UrlType::class, $this->getConfigs('Image URL', 'Enter the main picture of your property!'))
             ->add('introduction', TextType::class, $this->getConfigs('Intro', 'Write a short and global introduction of your property'))
             ->add('content', TextareaType::class, $this->getConfigs('Description', 'Enter a description of your property inside this field'))
