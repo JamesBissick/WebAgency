@@ -6,6 +6,7 @@ use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AdvertisingRepository")
@@ -22,11 +23,13 @@ class Advertising
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="10", max="255", minMessage="The title should be more than 10 characters!", maxMessage="The title can't be more than 255 characters!")
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="10", max="255", minMessage="The title should be more than 10 characters!", maxMessage="The title can't be more than 255 characters!")
      */
     private $slug;
 
@@ -37,16 +40,19 @@ class Advertising
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min="10", max="255", minMessage="The title should be more than 10 characters!", maxMessage="The title can't be more than 255 characters!")
      */
     private $introduction;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min="100", minMessage="The title should be more than 100 characters!"")
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Url()
      */
     private $coverImage;
 

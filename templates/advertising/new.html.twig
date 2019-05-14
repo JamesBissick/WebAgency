@@ -9,6 +9,7 @@
         <h2>Create a new post!</h2>
         {# This will generate the form #}
         {{ form_start(form) }}
+        {{ form_errors(form) }}
         {{ form_widget(form) }}
         <button type="submit" class="btn btn-primary">Send!</button>
         {{ form_end(form) }}
