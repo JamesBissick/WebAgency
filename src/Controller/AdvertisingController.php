@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Advertising;
+use App\Entity\Image;
 use App\Form\AnnoucementType;
 use App\Repository\AdvertisingRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -43,7 +44,6 @@ class AdvertisingController extends AbstractController
 
         // Create a new instance (object ad)
         $ad = new Advertising();
-
 
         // Handles Request and entered infos are transfered in the database
         $form = $this->createForm(AnnoucementType::class, $ad);
