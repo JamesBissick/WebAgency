@@ -17,8 +17,10 @@
 {% endblock %}
 
 {% block _annoucement_images_widget %}
-    <p>Here you can add your pictures!</p>
     {{ form_widget(form) }}
+
+    <input type="hidden" id="widgets-counter" value="0">
+    
     <div class="form-group">
         <button type="button" id="add-image" class="btn btn-primary">
             Upload
@@ -44,18 +46,18 @@
     <script>
         $('#add-image').click(function () {
             // Recover future field that'll create
-            const index = $('#annoucement_images div.form-group').length;
+            const index = +$('#widgets-counter').val();
             // Recover and replace prototype entries
             const tmpl = $('#annoucement_images').data('prototype').replace(/__name__/g, index);
             // Inject this code inside the div
             $('#annoucement_images').append(tmpl);
+            $('#widgets-counter').val(index + 1);
             handleDeleteButtons();
-            
+
         })
         function handleDeleteButtons() {
             $('button[data-action="delete"]').click(function () {
                 const target = this.dataset.target;
-                console.log(target);
                 $(target).remove();
             });
         }

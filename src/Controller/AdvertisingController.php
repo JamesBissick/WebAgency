@@ -49,6 +49,12 @@ class AdvertisingController extends AbstractController
         $form = $this->createForm(AnnoucementType::class, $ad);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
+
+            foreach ($ad->getImages() as $image){
+                $image->setAdvert($ad);
+                $manager->persist($image);
+            }
+
             //$manager = $this->getDoctrine()->getManager();
             $manager->persist($ad);
             $manager->flush();
