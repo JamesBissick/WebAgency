@@ -45,7 +45,7 @@ class AnnoucementType extends AbstractType {
             ->add('content', TextareaType::class, $this->getConfigs('Description', 'Enter a description of your property inside this field'))
             ->add('rooms', IntegerType::class, $this->getConfigs('Number of Rooms', 'Enter the number of rooms your property has'))
             ->add('price', MoneyType::class, $this->getConfigs('Price by nights', 'Enter your price for a night'))
-            ->add('images', CollectionType::class, ['entry_type' => ImageType::class, 'allow_add' => TRUE])
+            ->add('images', CollectionType::class, ['entry_type' => ImageType::class, 'allow_add' => TRUE, 'allow_delete' => TRUE])
         ;
     }
 

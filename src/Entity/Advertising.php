@@ -65,6 +65,7 @@ class Advertising
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="advert", orphanRemoval=true)
+     * @Assert\Valid()
      */
     private $images;
 

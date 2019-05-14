@@ -1,16 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit your advert{% endblock %}
+{% block title %}Edit your ad.{% endblock %}
+
+{% form_theme form _self %}
+
+{% form_theme form 'advertising/_collection.html.twig' %}
 
 {% block body %}
     <div class="container">
-        <h2 class="mb-5">Edit your post.</h2>
+        <h2>Edit your ad.</h2>
         {# This will generate the form #}
         {{ form_start(form) }}
-        {{ form_errors(form) }}
         {{ form_widget(form) }}
-        <button type="submit" class="btn btn-primary">Send!</button>
+        {{ form_errors(form) }}
+        <button type="submit" class="btn btn-primary">Edit</button>
         {{ form_end(form) }}
     </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    <script src="./{{ asset('assets/js/ad.js') }}"></script>
 {% endblock %}
