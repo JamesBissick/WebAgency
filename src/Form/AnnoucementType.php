@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Advertising;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
@@ -13,28 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AnnoucementType extends AbstractType {
-
-    /**
-     * Allows to have basic configurations inside our form
-     *
-     * @param $label
-     * @param $placeholder
-     * @param bool $required
-     * @return array
-     */
-    private function getConfigs($label, $placeholder, $required = TRUE){
-
-        return [
-            'label' => $label,
-            'attr' => [
-                'placeholder' => $placeholder
-            ],
-            'required' => $required
-        ];
-
-
-    }
+class AnnoucementType extends ApplicationType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder

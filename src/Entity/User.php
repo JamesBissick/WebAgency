@@ -5,10 +5,16 @@ namespace App\Entity;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="This email is already used!"
+ * )
  */
 class User implements UserInterface {
     /**
@@ -20,21 +26,25 @@ class User implements UserInterface {
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Please enter your firstname")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Please enter your lastname")
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(message="Please enter your email")
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Url(message="Please enter your avatar's URL")
      */
     private $picture;
 
@@ -44,12 +54,20 @@ class User implements UserInterface {
     private $hash;
 
     /**
+     * @Assert\EqualTo(propertyPath="hash", message="Your password confirmation is incorrect!")
+     */
+    // No need to annotate ORM because we don't need it to request the database!
+    public $passwordConfirmation;
+
+    /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="10", minMessage="Your password should be at least 10 characters", max="255", maxMessage="Your pass should be less than 255 characters")
      */
     private $intro;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min="100", minMessage="Your descrition should be at least 100 characters!")
      */
     private $description;
 
@@ -190,7 +208,7 @@ class User implements UserInterface {
      * and populated in any number of different ways when the user object
      * is created.
      *
-     * @return (Role|string)[] The user roles
+     * @return array (Role|string)[] The user roles
      */
     public function getRoles() {
         return ['ROLE_USER'];
@@ -215,9 +233,7 @@ class User implements UserInterface {
      *
      * @return string|null The salt
      */
-    public function getSalt() {
-        // TODO: Implement getSalt() method.
-    }
+    public function getSalt() {}
 
     /**
      * Returns the username used to authenticate the user.
